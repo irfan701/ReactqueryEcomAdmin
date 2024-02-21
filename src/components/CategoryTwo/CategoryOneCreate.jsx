@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {ErrorToast, isEmail, isEmpty} from "../../helper/FormHelper.js";
+import {ErrorToast, isEmpty} from "../../helper/FormHelper.js";
 import {useNavigate} from "react-router-dom";
 import {UseMutation} from "../../helper/ReactQueryHook.js";
 import {CreateRequest} from "../../APIRequest/BrandAPIRequest.js";
 import {useQueryClient} from "@tanstack/react-query";
 const BrandCreateUpdate = () => {
-    const [FormObj, setFormObj] = useState({name: '', email: '', phone: '', address: ''})
+    const [FormObj, setFormObj] = useState({name: ''})
     const navigate = useNavigate();
     const InputOnChange = (key, value) => {
         setFormObj(prevObj => ({
@@ -14,7 +14,7 @@ const BrandCreateUpdate = () => {
         }))
     }
     const queryClient = useQueryClient()
-    const {mutate,isError} = UseMutation(
+    const {mutate} = UseMutation(
         (formData) => CreateRequest(formData),
         async() => {
             return await queryClient.invalidateQueries({queryKey:["dataList"]})
@@ -24,17 +24,12 @@ const BrandCreateUpdate = () => {
     const onSubmit = async (event) => {
         event.preventDefault()
         if (isEmpty(FormObj.name)) {
-            ErrorToast("Customer Name Required !")
-        } else if (isEmpty(FormObj.phone)) {
-            ErrorToast("Customer Phone  Number Required !")
-        } else if (isEmail(FormObj.email)) {
-            ErrorToast("Valid Email Address Required !")
+            ErrorToast("Category Name Required !")
         } else {
             await mutate(FormObj)
-            navigate("/BrandListPage")
+            navigate("/CategoryOneListPage")
         }
     }
-
     return (
         <>
             <div className="container-fluid">

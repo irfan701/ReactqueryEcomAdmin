@@ -11,6 +11,9 @@ import Page404 from "./pages/NotFound/Page404.jsx";
 import LoginPage from "./pages/Users/LoginPage.jsx";
 import CategoryCreateUpdatePage from "./pages/Category/CategoryCreateUpdatePage.jsx";
 import CategoryList from "./components/Category/CategoryList.jsx";
+import CategoryOneCreatePage from "./pages/CategoryOne/CategoryOneCreatePage.jsx";
+import CategoryOneListPage from "./pages/CategoryOne/CategoryOneListPage.jsx";
+import CategoryOneUpdatePage from "./pages/CategoryOne/CategoryOneUpdatePage.jsx";
 
 const App = () => {
     return (
@@ -20,8 +23,18 @@ const App = () => {
                     <Route exact path="/" element={<DashboardPage/>}/>
                     <Route exact path="/CustomerCreateUpdatePage" element={<CustomerCreateUpdatePage />}/>
                     <Route exact path="/CustomerListPage" element={<CustomerListPage />}/>
-                    <Route exact path="/CategoryCreateUpdatePage" element={<CategoryCreateUpdatePage />}/>
-                    <Route exact path="/CategoryListPage" element={<CategoryList />}/>
+
+                    <Route exact path="/CategoryOneCreatePage" element={<CategoryOneCreatePage />}/>
+                    <Route exact path="/CategoryOneUpdatePage" element={<CategoryOneUpdatePage />}/>
+                    <Route exact path="/CategoryOneListPage" element={<CategoryOneListPage />}/>
+
+                    <Route exact path="/CategoryTwoCreatePage" element={<CategoryOneCreatePage />}/>
+                    <Route exact path="/CategoryTwoUpdatePage" element={<CategoryOneUpdatePage />}/>
+                    <Route exact path="/CategoryTwoListPage" element={<CategoryOneListPage />}/>
+
+                    <Route exact path="/CategoryThreeCreatePage" element={<CategoryOneCreatePage />}/>
+                    <Route exact path="/CategoryThreeUpdatePage" element={<CategoryOneUpdatePage />}/>
+                    <Route exact path="/CategoryThreeListPage" element={<CategoryOneListPage />}/>
 
                     <Route exact path="/BrandCreatePage" element={<BrandCreatePage />}/>
                     <Route exact path="/BrandUpdatePage" element={<BrandUpdatePage />}/>

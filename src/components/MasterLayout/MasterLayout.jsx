@@ -75,32 +75,32 @@ const MasterLayout = (props) => {
         {
           title: 'New Category-1',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryCreateUpdatePage',
+          url: '/CategoryOneCreatePage',
         },
         {
           title: 'Category List-1',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryListPage',
+          url: '/CategoryOneListPage',
         },
         {
           title: 'New Category-2',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryCreateUpdatePage2',
+          url: '/CategoryTwoCreatePage',
         },
         {
           title: 'Category List-2',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryListPage',
+          url: '/CategoryTwoListPage',
         },
         {
           title: 'New Category-3',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryCreateUpdatePage3',
+          url: '/CategoryThreeCreatePage',
         },
         {
           title: 'Category List-3',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryListPage',
+          url: '/CategoryThreeListPage',
         },
       ],
     },

@@ -1,11 +1,11 @@
 import {useState} from "react";
-import {ErrorToast, isEmail, isEmpty} from "../../helper/FormHelper.js";
+import {ErrorToast, isEmpty} from "../../helper/FormHelper.js";
 import {useNavigate} from "react-router-dom";
 import {UseMutation} from "../../helper/ReactQueryHook.js";
-import {CreateRequest} from "../../APIRequest/BrandAPIRequest.js";
+import {CreateRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
 import {useQueryClient} from "@tanstack/react-query";
 const BrandCreateUpdate = () => {
-    const [FormObj, setFormObj] = useState({name: '', email: '', phone: '', address: ''})
+    const [FormObj, setFormObj] = useState({name: ''})
     const navigate = useNavigate();
     const InputOnChange = (key, value) => {
         setFormObj(prevObj => ({
@@ -14,7 +14,7 @@ const BrandCreateUpdate = () => {
         }))
     }
     const queryClient = useQueryClient()
-    const {mutate,isError} = UseMutation(
+    const {mutate} = UseMutation(
         (formData) => CreateRequest(formData),
         async() => {
             return await queryClient.invalidateQueries({queryKey:["dataList"]})
@@ -24,17 +24,12 @@ const BrandCreateUpdate = () => {
     const onSubmit = async (event) => {
         event.preventDefault()
         if (isEmpty(FormObj.name)) {
-            ErrorToast("Customer Name Required !")
-        } else if (isEmpty(FormObj.phone)) {
-            ErrorToast("Customer Phone  Number Required !")
-        } else if (isEmail(FormObj.email)) {
-            ErrorToast("Valid Email Address Required !")
+            ErrorToast("Category-1 Name Required !")
         } else {
             await mutate(FormObj)
-            navigate("/BrandListPage")
+            //navigate("/CategoryOneListPage")
         }
     }
-
     return (
         <>
             <div className="container-fluid">
@@ -44,35 +39,24 @@ const BrandCreateUpdate = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h5>Save Customer</h5>
+                                        <h5>Save Category</h5>
                                         <hr className="bg-light"/>
 
                                         <div className="col-4 p-2">
-                                            <label className="form-label">Customer Name</label>
+                                            <label className="form-label">Category-1 Name</label>
                                             <input
                                                 onChange={(e) => InputOnChange('name', e.target.value)}
                                                 className="form-control form-control-sm"
                                                 type="text"/>
                                         </div>
                                         <div className="col-4 p-2">
-                                            <label className="form-label">Mobile No</label>
+                                            <label className="form-label">photo</label>
                                             <input
                                                 onChange={(e) => InputOnChange('phone', e.target.value)}
                                                 className="form-control form-control-sm"
                                                 type="text"/>
                                         </div>
-                                        <div className="col-4 p-2">
-                                            <label className="form-label">Email </label>
-                                            <input
-                                                onChange={(e) => InputOnChange('email', e.target.value)}
-                                                className="form-control form-control-sm" type="text"/>
-                                        </div>
-                                        <div className="col-12 p-2">
-                                            <label className="form-label">Address</label>
-                                            <textarea
-                                                onChange={(e) => InputOnChange('address', e.target.value)}
-                                                className="form-control form-control-sm" rows={4}/>
-                                        </div>
+
                                     </div>
                                     <div className="row">
                                         <div className="col-4 p-2">
