@@ -22,7 +22,7 @@ class FormHelper {
      getServerError (error)  {
         if (error.response.data && error.response.data.errors) {
             let errors = error.response.data.errors
-            Object.keys(errors).map((error) => ((this.ErrorToast(errors[error][0]))))
+            Object.keys(errors).map((error) => ((ErrorToast(errors[error][0]))))
         }
     }
     getBase64(file) {

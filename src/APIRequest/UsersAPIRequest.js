@@ -1,19 +1,32 @@
 import axios from "axios";
-import {ErrorToast, SuccessToast} from "../helper/FormHelper";
-import {getToken, setEmail, setOTP, setToken, setUserDetails} from "../helper/SessionHelper";
-import {BaseURL} from "../helper/config";
+import {ErrorToast, SuccessToast} from "../utility/FormHelper";
+import {getToken, setEmail, setOTP, setToken, setUserDetails} from "../utility/SessionHelper";
+import {BaseURL} from "../utility/config";
 
+const login = '/login';
+const register = '/register';
+// const logout = '/logout';
+// const resetPasswordLinkEmail = '/reset/password/link/email';
+// const resetPassword = '/reset/password';
+// const emailVerifyLink = '/email/verify/link';
+// const emailVerify = '/email/verify';
 
-const AxiosHeader={headers:{"token":getToken()}}
+// const AxiosHeaders = {
+//     headers: {
+//         Accept:'application/json',
+//         Authorization:getToken(),
+//     }
+// }
+// const AxiosHeader={headers:{"token":getToken()}}
 
 export async function LoginRequest(email,password){
    try {
 
-       let URL=BaseURL+"/Login";
+       let URL = `${BaseURL}${login}`;
        let PostBody={"email":email,"password":password}
        let res =await axios.post(URL,PostBody);
-       setToken(res.data['token']);
-       setUserDetails(res.data['data']);
+       setToken(res.data.access_token);
+       setUserDetails(res.data.user);
        SuccessToast("Login Success")
        return true;
    }
@@ -29,7 +42,7 @@ export async function LoginRequest(email,password){
 export async function RegistrationRequest(email,firstName,lastName,mobile,password,photo){
     try {
 
-        let URL=BaseURL+"/Registration";
+        let URL = `${BaseURL}${register}`;
         let PostBody={email:email,firstName:firstName,lastName:lastName,mobile:mobile,password:password, photo:photo}
         let res=await axios.post(URL,PostBody)
         if(res.status===200){

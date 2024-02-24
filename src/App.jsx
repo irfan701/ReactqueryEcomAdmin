@@ -14,6 +14,9 @@ import CategoryList from "./components/Category/CategoryList.jsx";
 import CategoryOneCreatePage from "./pages/CategoryOne/CategoryOneCreatePage.jsx";
 import CategoryOneListPage from "./pages/CategoryOne/CategoryOneListPage.jsx";
 import CategoryOneUpdatePage from "./pages/CategoryOne/CategoryOneUpdatePage.jsx";
+import CategoryTwoCreatePage from "./pages/CategoryTwo/CategoryTwoCreatePage.jsx";
+import CategoryTwoUpdatePage from "./pages/CategoryTwo/CategoryTwoUpdatePage.jsx";
+import CategoryTwoListPage from "./pages/CategoryTwo/CategoryTwoListPage.jsx";
 
 const App = () => {
     return (
@@ -28,9 +31,9 @@ const App = () => {
                     <Route exact path="/CategoryOneUpdatePage" element={<CategoryOneUpdatePage />}/>
                     <Route exact path="/CategoryOneListPage" element={<CategoryOneListPage />}/>
 
-                    <Route exact path="/CategoryTwoCreatePage" element={<CategoryOneCreatePage />}/>
-                    <Route exact path="/CategoryTwoUpdatePage" element={<CategoryOneUpdatePage />}/>
-                    <Route exact path="/CategoryTwoListPage" element={<CategoryOneListPage />}/>
+                    <Route exact path="/CategoryTwoCreatePage" element={<CategoryTwoCreatePage />}/>
+                    <Route exact path="/CategoryTwoUpdatePage" element={<CategoryTwoUpdatePage />}/>
+                    <Route exact path="/CategoryTwoListPage" element={<CategoryTwoListPage />}/>
 
                     <Route exact path="/CategoryThreeCreatePage" element={<CategoryOneCreatePage />}/>
                     <Route exact path="/CategoryThreeUpdatePage" element={<CategoryOneUpdatePage />}/>

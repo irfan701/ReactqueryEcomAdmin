@@ -1,6 +1,6 @@
 import React, {useRef} from 'react';
 import {useNavigate} from "react-router-dom";
-import {ErrorToast, IsEmail, IsEmpty, IsMobile} from "../../helper/FormHelper";
+import {ErrorToast, IsEmail, IsEmpty, IsMobile} from "../../utility/FormHelper";
 import {RegistrationRequest} from "../../APIRequest/UsersAPIRequest";
 
 const Registration = () => {

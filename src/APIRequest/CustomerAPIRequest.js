@@ -1,6 +1,6 @@
 import axios from "axios";
-import {ErrorToast, SuccessToast} from "../helper/FormHelper";
-import {BaseURL} from "../helper/config";
+import {ErrorToast, SuccessToast} from "../utility/FormHelper";
+import {BaseURL} from "../utility/config";
 
 
 //import {getToken} from "../helper/SessionHelper";

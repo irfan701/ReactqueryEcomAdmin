@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {CreateCustomerRequest, FillCustomerFormRequest} from "../../APIRequest/CustomerAPIRequest";
-import {ErrorToast, isEmail, isEmpty} from "../../helper/FormHelper";
+import {ErrorToast, isEmail, isEmpty} from "../../utility/FormHelper";
 import {useNavigate} from "react-router-dom";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
 

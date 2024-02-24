@@ -10,7 +10,7 @@ import "./assets/css/style.css";
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 10000,
+          //  staleTime: 10000,
         },
     },
 })

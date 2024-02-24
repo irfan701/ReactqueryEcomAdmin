@@ -1,5 +1,5 @@
 import React, {Fragment, useRef} from 'react';
-import {ErrorToast, IsEmail} from "../../helper/FormHelper";
+import {ErrorToast, IsEmail} from "../../utility/FormHelper";
 import {RecoverVerifyEmailRequest} from "../../APIRequest/UsersAPIRequest";
 import {useNavigate} from "react-router-dom";
 

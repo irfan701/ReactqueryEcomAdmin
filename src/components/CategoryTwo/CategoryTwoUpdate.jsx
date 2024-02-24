@@ -1,33 +1,42 @@
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ErrorToast, isEmpty} from "../../utility/FormHelper.js";
 import {UseMutation, UseQuery} from "../../utility/ReactQueryHook.js";
-import {FillFormRequest, UpdateRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
+import {FillFormRequest, UpdateRequest} from "../../APIRequest/CategoryTwoAPIRequest.js";
 import {useNavigate} from "react-router-dom";
-import {useQueryClient} from "@tanstack/react-query";
+import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 
-export default function CategoryOneUpdate() {
-    const [FormObj, setFormObj] = useState({cat1_name: ''})
+import {DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
+
+
+export default function CategoryTwoUpdate() {
+    const [FormObj, setFormObj] = useState({cat1_id: '', cat2_name: ''})
     const navigate = useNavigate()
-    const InputOnChange = (key, value) => {
-        setFormObj(prevObj => ({
-            ...prevObj,
-            [key]: value
-        }))
-    }
+    const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
+
+    const {data: category_one} =
+        useQuery({
+            queryKey: ["category_one"],
+            queryFn: async () => DropDownListRequest(),
+            placeholderData: keepPreviousData,
+            //staleTime: 2000,
+        })
 
     let params = new URLSearchParams(window.location.search);
     let id = params.get('id');
 
     const {isLoading, error, data} = UseQuery(['person', id], FillFormRequest(id))
-    useEffect(() => {
-        if (data) {
-            setFormObj(prevObj => ({
-                ...prevObj,
-                cat1_name: data.cat1_name,
-            }))
-        }
-    }, [data]);
+
+
+    // useEffect(() => {
+    //     if (data) {
+    //         setFormObj(prevObj => ({
+    //             ...prevObj,
+    //             cat2_name: data.cat2_name,
+    //             // cat1_id: category_one.id
+    //         }))
+    //     }
+    // }, [data]);
 
     const queryClient = useQueryClient()
 
@@ -43,12 +52,21 @@ export default function CategoryOneUpdate() {
     )
     const onSubmit = async (event) => {
         event.preventDefault()
-        if (isEmpty(FormObj.cat1_name)) {
-            ErrorToast("Category-1 Name Required !")
-        } else {
-          await mutate(FormObj)
-           navigate("/CategoryOneListPage")
-        }
+        // if (isEmpty(FormObj.cat2_name)) {
+        //     ErrorToast("Category-2 Name Required !")
+        // } else {
+            await mutate(FormObj)
+            navigate("/CategoryTwoListPage")
+        //}
+    }
+
+    const getCategories = () => {
+        return category_one?.map((item, i) => {
+                const catArr = Object.values(item)
+                const isSelected=(catArr.includes(data.cat1_id)) ?"selected":""
+                return <option key={i.toString()} value={item.id}  selected={isSelected}>{item.cat1_name}</option>
+            }
+        )
     }
 
     if (isLoading) return <ScreenLoader/>
@@ -67,19 +85,19 @@ export default function CategoryOneUpdate() {
                                             <hr className="bg-light"/>
 
                                             <div className="col-4 p-2">
-                                                <label className="form-label">Category-1 Name</label>
-                                                <input
-                                                    onChange={(e) => InputOnChange('cat1_name', e.target.value)}
-                                                    defaultValue={data.cat1_name}
-                                                    className="form-control form-control-sm"
-                                                    type="text"/>
+                                                <label className="form-label">Category-1 List</label>
+                                                <select onChange={(e) => InputOnChange('cat1_id', e.target.value)} className="form-control form-control-sm">
+                                                    <option value="">Select Category</option>
+                                                    {getCategories()}
+                                                </select>
                                             </div>
+
                                             <div className="col-4 p-2">
-                                                <label className="form-label">photo</label>
+                                                <label className="form-label">Category-2 Name</label>
                                                 <input
-                                                    onChange={(e) => InputOnChange('cat1_image', e.target.value)}
-                                                    defaultValue={data.cat1_image}
+                                                    onChange={(e) => InputOnChange('cat2_name', e.target.value)}
                                                     className="form-control form-control-sm"
+                                                    defaultValue={data.cat2_name}
                                                     type="text"/>
                                             </div>
                                         </div>
@@ -99,4 +117,3 @@ export default function CategoryOneUpdate() {
         );
     }
 }
-

@@ -3,32 +3,33 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
-import {DeleteRequest, ListRequest} from "../../APIRequest/BrandAPIRequest.js";
-import {DeleteAlert} from "../../helper/DeleteAlert.js";
-import {UseMutation} from "../../helper/ReactQueryHook.js";
-import {ErrorToast} from "../../helper/FormHelper.js";
+import {DeleteRequest, ListRequest} from "../../APIRequest/CategoryTwoAPIRequest.js";
+import {DeleteAlert} from "../../utility/DeleteAlert.js";
+import {UseMutation} from "../../utility/ReactQueryHook.js";
+import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
-const CategoryOneList = () => {
 
-    const [pageNo,setPageNo]=useState(1); //skip
+export default function CategoryTwoList(){
+
+    const [pageNo, setPageNo] = useState(1); //skip
     const [perPage, setPerPage] = useState(10); //limit
     const [searchKeyword, setSearchKeyword] = useState(0);
 
 
     const queryClient = useQueryClient()
-    const {isFetching,isLoading,isError, error, data: dataList} =
+    const {isFetching, isLoading, isError, error, data: dataList} =
         useQuery({
-            queryKey: ["dataList",pageNo,perPage,searchKeyword],
-            queryFn: async ()=> ListRequest(pageNo,perPage,searchKeyword),
+            queryKey: ["dataList", pageNo, perPage, searchKeyword],
+            queryFn: async () => ListRequest(pageNo, perPage, searchKeyword),
             placeholderData: keepPreviousData,
-            staleTime: 2000,
+            //staleTime: 2000,
         })
-    const handleMove=(id)=>{
-       if (pageNo!==1){
-           setPageNo(1)
-       }
-        setPageNo((prevPage) => prevPage + (id-1))
+    const handleMove = (id) => {
+        if (pageNo !== 1) {
+            setPageNo(1)
+        }
+        setPageNo((prevPage) => prevPage + (id - 1))
     }
     const perPageOnChange = async (e) => {
         setPageNo(1)
@@ -52,11 +53,12 @@ const CategoryOneList = () => {
     const {mutate} = UseMutation(
         (id) => DeleteRequest(id),
         async () => {
-            return await queryClient.invalidateQueries({queryKey:["dataList"]})
+            return await queryClient.invalidateQueries({queryKey: ["dataList"]})
         },
         (e) => ErrorToast(e.message)
     )
     const deleteItem = async (id) => {
+        console.log(id)
         let Result = await DeleteAlert();
         if (Result.isConfirmed) {
             mutate(id)
@@ -105,10 +107,6 @@ const CategoryOneList = () => {
                                                        placeholder="Search.."
                                                        aria-label="Recipient's username"
                                                        aria-describedby="button-addon2"/>
-                                                {/*<button onClick={searchData}*/}
-                                                {/*        className="btn  btn-success btn-sm mb-0"*/}
-                                                {/*        type="button">Search*/}
-                                                {/*</button>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -119,42 +117,38 @@ const CategoryOneList = () => {
                                                     <thead className="sticky-top bg-white">
                                                     <tr>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Photo</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-1
+                                                            Name
+                                                        </td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2
+                                                            Name
+                                                        </td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2
+                                                            Slug</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     {
-                                                        dataList.rows.map((item, i) => {
+                                                        dataList.rows?.map((item, i) => {
                                                             return (
                                                                 <tr key={i.toString()}>
                                                                     <td><p
-                                                                        className="text-xs text-start">{i + 1}</p>
+                                                                        className="text-xs text-start"> {item.id}</p>
                                                                     </td>
                                                                     <td><p
-                                                                        className="text-xs text-start">{item.name}</p>
+                                                                        className="text-xs text-start">{item.cat1_name}</p>
                                                                     </td>
                                                                     <td><p
-                                                                        className="text-xs text-start">{item.email}</p>
+                                                                        className="text-xs text-start">{item.cat2_name}</p>
                                                                     </td>
                                                                     <td><p
-                                                                        className="text-xs text-start">{item.phone}</p>
+                                                                        className="text-xs text-start">{item.cat2_slug}</p>
                                                                     </td>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{item.address}</p>
-                                                                    </td>
-                                                                    <td><p className="text-xs text-start">
-                                                                        <img src={item.photo} alt=""
-                                                                             className="w-50"/>
-                                                                    </p></td>
 
                                                                     <td>
                                                                         <Link
-                                                                            to={`/BrandUpdatePage?id=${item.id}`}
+                                                                            to={`/CategoryTwoUpdatePage?id=${item.id}`}
                                                                             className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>
@@ -184,14 +178,10 @@ const CategoryOneList = () => {
                                                     between={5}
                                                     total={Math.ceil(dataList.total)}
                                                     limit={perPage}
-                                                    changePage={(id)=>handleMove(id)}
+                                                    changePage={(id) => handleMove(id)}
                                                     ellipsis={1}
                                                     next={true}
                                                 />
-
-                                                {/*<button onClick={()=>setPageNo((page)=>page-1)} disabled={pageNo===1}> Previous Page</button>*/}
-                                                {/*<button onClick={()=>setPageNo((page)=>page+1)}>  Next Page</button>*/}
-
                                             </nav>
                                         </div>
                                     </div>
@@ -204,7 +194,4 @@ const CategoryOneList = () => {
 
         </>
     );
-
 };
-
-export default CategoryOneList;

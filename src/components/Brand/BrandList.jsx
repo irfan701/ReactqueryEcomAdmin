@@ -4,9 +4,9 @@ import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query"
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
 import {DeleteRequest, ListRequest} from "../../APIRequest/BrandAPIRequest.js";
-import {DeleteAlert} from "../../helper/DeleteAlert.js";
-import {UseMutation} from "../../helper/ReactQueryHook.js";
-import {ErrorToast} from "../../helper/FormHelper.js";
+import {DeleteAlert} from "../../utility/DeleteAlert.js";
+import {UseMutation} from "../../utility/ReactQueryHook.js";
+import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
 const BrandList = () => {

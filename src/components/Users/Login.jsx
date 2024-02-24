@@ -1,6 +1,6 @@
 import  {Fragment, useRef} from 'react';
 import {Link} from "react-router-dom";
-import {ErrorToast, isEmail} from "../../helper/FormHelper";
+import {ErrorToast, isEmail, isEmpty} from "../../utility/FormHelper";
 import {LoginRequest} from "../../APIRequest/UsersAPIRequest";
 
 const  Login = () => {
@@ -13,7 +13,7 @@ const  Login = () => {
         let pass = passRef.value;
         if (isEmail(email)) {
             ErrorToast("Invalid Email Address")
-        } else if (isEmail(pass)) {
+        } else if (isEmpty(pass)) {
             ErrorToast("Password Required")
         } else {
           let result= await LoginRequest(email, pass)

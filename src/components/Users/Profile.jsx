@@ -1,7 +1,7 @@
 import  {useEffect, useRef} from 'react';
 import {GetProfileDetails, ProfileUpdateRequest} from "../../APIRequest/UsersAPIRequest";
 
-import {ErrorToast, getBase64, isEmail, isEmpty, isMobile} from "../../helper/FormHelper";
+import {ErrorToast, getBase64, isEmail, isEmpty, isMobile} from "../../utility/FormHelper";
 import {useNavigate} from "react-router-dom";
 
 const Profile = () => {

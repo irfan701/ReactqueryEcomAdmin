@@ -1,8 +1,8 @@
 import React, {Fragment, useState} from 'react';
 import ReactCodeInput from "react-code-input";
-import {ErrorToast} from "../../helper/FormHelper";
+import {ErrorToast} from "../../utility/FormHelper";
 import {RecoverVerifyOTPRequest} from "../../APIRequest/UsersAPIRequest";
-import {getEmail} from "../../helper/SessionHelper";
+import {getEmail} from "../../utility/SessionHelper";
 import {useNavigate} from "react-router-dom";
 
 const VerifyOTP = () => {

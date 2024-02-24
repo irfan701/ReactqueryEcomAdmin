@@ -1,7 +1,7 @@
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {useEffect, useState} from "react";
-import {ErrorToast, isEmail, isEmpty} from "../../helper/FormHelper.js";
-import {UseMutation, UseQuery} from "../../helper/ReactQueryHook.js";
+import {ErrorToast, isEmail, isEmpty} from "../../utility/FormHelper.js";
+import {UseMutation, UseQuery} from "../../utility/ReactQueryHook.js";
 import {FillFormRequest, UpdateRequest} from "../../APIRequest/BrandAPIRequest.js";
 import {useNavigate} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";

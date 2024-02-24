@@ -2,7 +2,7 @@ import {useEffect, useState} from 'react';
 import {CustomerListRequest, DeleteCustomerRequest} from "../../APIRequest/CustomerAPIRequest";
 import {Link} from "react-router-dom";
 import ReactPaginate from "react-paginate";
-import {DeleteAlert} from "../../helper/DeleteAlert";
+import {DeleteAlert} from "../../utility/DeleteAlert";
 import {AiOutlineDelete} from "react-icons/ai";
 import {FaEdit} from "react-icons/fa";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";

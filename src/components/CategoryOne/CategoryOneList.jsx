@@ -3,10 +3,10 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
-import {DeleteRequest, ListRequest} from "../../APIRequest/BrandAPIRequest.js";
-import {DeleteAlert} from "../../helper/DeleteAlert.js";
-import {UseMutation} from "../../helper/ReactQueryHook.js";
-import {ErrorToast} from "../../helper/FormHelper.js";
+import {DeleteRequest, ListRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
+import {DeleteAlert} from "../../utility/DeleteAlert.js";
+import {UseMutation} from "../../utility/ReactQueryHook.js";
+import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
 
@@ -135,20 +135,20 @@ const CategoryOneList = () => {
                                                                         className="text-xs text-start">{i + 1}</p>
                                                                     </td>
                                                                     <td><p
-                                                                        className="text-xs text-start">{item.name}</p>
+                                                                        className="text-xs text-start">{item.cat1_name}</p>
                                                                     </td>
                                                                     <td><p
-                                                                        className="text-xs text-start">{item.slug}</p>
+                                                                        className="text-xs text-start">{item.cat1_slug}</p>
                                                                     </td>
 
                                                                     <td><p className="text-xs text-start">
-                                                                        <img src={item.photo} alt=""
+                                                                        <img src={item.cat1_image} alt=""
                                                                              className="w-50"/>
                                                                     </p></td>
 
                                                                     <td>
                                                                         <Link
-                                                                            to={`/BrandUpdatePage?id=${item.id}`}
+                                                                            to={`/CategoryOneUpdatePage?id=${item.id}`}
                                                                             className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>

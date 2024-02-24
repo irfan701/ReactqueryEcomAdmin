@@ -4,7 +4,7 @@ import {Link, NavLink} from 'react-router-dom';
 import {AiOutlineBank, AiOutlineLogout, AiOutlineMenu, AiOutlineUnorderedList, AiOutlineUser} from 'react-icons/ai';
 import {BsBagPlus, BsBagX, BsBox, BsCartPlus, BsCircle, BsGraphUp, BsPeople} from 'react-icons/bs';
 import logo from "../../assets/images/Logo.svg"
-import {removeSessions} from "../../helper/SessionHelper";
+import {removeSessions} from "../../utility/SessionHelper";
 import {RiDashboardLine} from "react-icons/ri";
 import {TbTruckDelivery} from "react-icons/tb";
 import {IoCreateOutline} from "react-icons/io5";
@@ -61,46 +61,36 @@ const MasterLayout = (props) => {
       subMenu: [
 
         {
-          title: 'New Brand',
-          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/BrandCreatePage',
-        },
-        {
-          title: 'Brand List',
-          icon: (
-              <BsCircle  size={16} className="side-bar-subitem-icon" />
-          ),
-          url: '/BrandListPage',
-        },
-        {
-          title: 'New Category-1',
+          title: 'Add Category-1',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/CategoryOneCreatePage',
         },
         {
-          title: 'Category List-1',
+          title: 'List Category-1',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/CategoryOneListPage',
         },
         {
-          title: 'New Category-2',
+          title: 'Add Category-2',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/CategoryTwoCreatePage',
         },
         {
-          title: 'Category List-2',
+          title: 'List Category-2',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/CategoryTwoListPage',
         },
         {
-          title: 'New Category-3',
+          title: 'Add Brand',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryThreeCreatePage',
+          url: '/BrandCreatePage',
         },
         {
-          title: 'Category List-3',
-          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/CategoryThreeListPage',
+          title: 'List Brand',
+          icon: (
+              <BsCircle  size={16} className="side-bar-subitem-icon" />
+          ),
+          url: '/BrandListPage',
         },
       ],
     },

@@ -1,21 +1,17 @@
 import axios from "axios";
-import {BaseURL} from "../utility/config.js";
+import {AxiosHeaders, BaseURL} from "../utility/config.js";
 import {ErrorToast, getServerError, SuccessToast} from "../utility/FormHelper.js";
 
-//import {getToken} from "../helper/SessionHelper";
-//const AxiosHeader={headers:{"token":getToken()}}
-// const result = await axios.get(URL,AxiosHeader)
-
-const get = '/brand/get';
-const create = '/brand/create';
-const read = '/brand/read';
-const update = '/brand/update';
-const remove = '/brand/delete';
+const get = '/category2/get';
+const create = '/category2/create';
+const read = '/category2/read';
+const update = '/category2/update';
+const remove = '/category2/delete';
 
 export const ListRequest = async (pageNo, perPage, searchKeyword) => {
     try {
         let URL = `${BaseURL}${get}/${pageNo}/${perPage}/${searchKeyword}`;
-        let result = await axios.get(URL)
+        let result = await axios.get(URL, AxiosHeaders)
         if (result.status === 200) {
             if (result.data) {
                 return result.data
@@ -33,8 +29,8 @@ export const ListRequest = async (pageNo, perPage, searchKeyword) => {
 export const CreateRequest = async (PostBody) => {
     try {
         let URL = `${BaseURL}${create}`
-        let result = await axios.post(URL, PostBody)
-        if (result.status === 200) {
+        let result = await axios.post(URL, PostBody, AxiosHeaders)
+        if (result.status === 200 && result.data===1) {
             SuccessToast("Request Successful");
             return true;
         } else {
@@ -49,7 +45,7 @@ export const CreateRequest = async (PostBody) => {
 export const FillFormRequest = async (id) => {
     try {
         let URL = `${BaseURL}${read}/${id}`
-        const result = await axios.get(URL)
+        const result = await axios.get(URL, AxiosHeaders)
         if (result.status === 200) {
             return result.data
         } else {
@@ -64,8 +60,8 @@ export const FillFormRequest = async (id) => {
 export const UpdateRequest = async (PostBody, ObjectID) => {
     try {
         let URL = `${BaseURL}${update}/${ObjectID}`
-        let result = await axios.post(URL, PostBody)
-        if (result.status === 200) {
+        let result = await axios.post(URL, PostBody, AxiosHeaders)
+        if (result.status === 200 && result.data===1) {
             SuccessToast("Request Successful");
             return true;
         } else {
@@ -79,8 +75,9 @@ export const UpdateRequest = async (PostBody, ObjectID) => {
 export const DeleteRequest = async (ObjectID) => {
     try {
         let URL = `${BaseURL}${remove}/${ObjectID}`
-        let result = await axios.get(URL)
-        if (result.status === 200) {
+        let result = await axios.get(URL, AxiosHeaders)
+        if (result.status === 200 && result.data===1) {
+          //  console.log(result.data)
             SuccessToast("Request Successful");
             return true
         } else {

@@ -1,18 +1,12 @@
 import {useState} from "react";
-import {ErrorToast, isEmpty} from "../../helper/FormHelper.js";
-import {useNavigate} from "react-router-dom";
-import {UseMutation} from "../../helper/ReactQueryHook.js";
+import {ErrorToast} from "../../utility/FormHelper.js";
+import {UseMutation} from "../../utility/ReactQueryHook.js";
 import {CreateRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
 import {useQueryClient} from "@tanstack/react-query";
 const BrandCreateUpdate = () => {
-    const [FormObj, setFormObj] = useState({name: ''})
-    const navigate = useNavigate();
-    const InputOnChange = (key, value) => {
-        setFormObj(prevObj => ({
-            ...prevObj,
-            [key]: value
-        }))
-    }
+    const [FormObj, setFormObj] = useState({cat1_name: '',cat1_image:''})
+    const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
+
     const queryClient = useQueryClient()
     const {mutate} = UseMutation(
         (formData) => CreateRequest(formData),
@@ -23,12 +17,12 @@ const BrandCreateUpdate = () => {
     )
     const onSubmit = async (event) => {
         event.preventDefault()
-        if (isEmpty(FormObj.name)) {
-            ErrorToast("Category-1 Name Required !")
-        } else {
+        // if (isEmpty(FormObj.cat1_name)) {
+        //     ErrorToast("Category-1 Name Required !")
+        // } else {
             await mutate(FormObj)
-            //navigate("/CategoryOneListPage")
-        }
+
+       // }
     }
     return (
         <>
@@ -39,20 +33,20 @@ const BrandCreateUpdate = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h5>Save Category</h5>
+                                        <h5>New Category Level -1</h5>
                                         <hr className="bg-light"/>
 
                                         <div className="col-4 p-2">
                                             <label className="form-label">Category-1 Name</label>
                                             <input
-                                                onChange={(e) => InputOnChange('name', e.target.value)}
+                                                onChange={(e) => InputOnChange('cat1_name', e.target.value)}
                                                 className="form-control form-control-sm"
                                                 type="text"/>
                                         </div>
                                         <div className="col-4 p-2">
-                                            <label className="form-label">photo</label>
+                                            <label className="form-label">Category-1 Image</label>
                                             <input
-                                                onChange={(e) => InputOnChange('phone', e.target.value)}
+                                                onChange={(e) => InputOnChange('cat1_image', e.target.value)}
                                                 className="form-control form-control-sm"
                                                 type="text"/>
                                         </div>
