@@ -2,11 +2,11 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import React, {useEffect, useState} from "react";
 import {ErrorToast, isEmpty} from "../../utility/FormHelper.js";
 import {UseMutation, UseQuery} from "../../utility/ReactQueryHook.js";
-import {FillFormRequest, UpdateRequest} from "../../APIRequest/CategoryTwoAPIRequest.js";
+import {FillFormRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {useNavigate} from "react-router-dom";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
-
 import {DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
+import {readCategory2, updateCategory2} from "../../APIRequest/RouteName.js";
 
 
 export default function CategoryTwoUpdate() {
@@ -25,7 +25,7 @@ export default function CategoryTwoUpdate() {
     let params = new URLSearchParams(window.location.search);
     let id = params.get('id');
 
-    const {isLoading, error, data} = UseQuery(['person', id], FillFormRequest(id))
+    const {isLoading, error, data} = UseQuery(['singleData2', id], FillFormRequest(readCategory2,id))
 
 
     // useEffect(() => {
@@ -41,12 +41,12 @@ export default function CategoryTwoUpdate() {
     const queryClient = useQueryClient()
 
     const {mutate} = UseMutation(
-        (formData) => UpdateRequest(formData, id),
+        (formData) => UpdateRequest(updateCategory2,formData, id),
         async (data) =>
             (await Promise.all([
-                queryClient.setQueryData(['person', id], data),
-                queryClient.invalidateQueries({queryKey: ["dataList"]}),
-                queryClient.invalidateQueries({queryKey: ["person"]}),
+                queryClient.setQueryData(['singleData2', id], data),
+                queryClient.invalidateQueries({queryKey: ["categoriesTwo"]}),
+                queryClient.invalidateQueries({queryKey: ["singleData2"]}),
             ])),
         (e) => ErrorToast(e.message)
     )

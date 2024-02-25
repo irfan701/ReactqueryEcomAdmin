@@ -12,3 +12,10 @@ export const createCategory2 = '/category2/create';
 export const readCategory2 = '/category2/read';
 export const updateCategory2 = '/category2/update';
 export const removeCategory2 = '/category2/delete';
+
+//Brand
+export const getBrand = '/brand/get';
+export const createBrand = '/brand/create';
+export const readBrand = '/brand/read';
+export const updateBrand = '/brand/update';
+export const removeBrand = '/brand/delete';

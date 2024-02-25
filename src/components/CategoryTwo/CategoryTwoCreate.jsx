@@ -1,10 +1,11 @@
 import {useState} from "react";
 import {ErrorToast, isEmpty} from "../../utility/FormHelper.js";
 import {UseMutation} from "../../utility/ReactQueryHook.js";
-import {CreateRequest} from "../../APIRequest/CategoryTwoAPIRequest.js";
+import {CreateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
+import {createCategory2} from "../../APIRequest/RouteName.js";
 
 export default function CategoryTwoCreate() {
     const [FormObj, setFormObj] = useState({cat1_id:'',cat2_name: ''})
@@ -20,7 +21,7 @@ export default function CategoryTwoCreate() {
 
     const queryClient = useQueryClient()
     const {mutate} = UseMutation(
-        (formData) => CreateRequest(formData),
+        (formData) => CreateRequest(createCategory2,formData),
         async () => {
             return await queryClient.invalidateQueries({queryKey: ["category_one"]})
         },

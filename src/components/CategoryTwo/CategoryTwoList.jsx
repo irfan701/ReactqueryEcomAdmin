@@ -3,12 +3,13 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
-import {DeleteRequest, ListRequest} from "../../APIRequest/CategoryTwoAPIRequest.js";
+import {DeleteRequest, ListRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {DeleteAlert} from "../../utility/DeleteAlert.js";
 import {UseMutation} from "../../utility/ReactQueryHook.js";
 import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
+import {getCategory2, removeCategory2} from "../../APIRequest/RouteName.js";
 
 export default function CategoryTwoList(){
 
@@ -18,10 +19,10 @@ export default function CategoryTwoList(){
 
 
     const queryClient = useQueryClient()
-    const {isFetching, isLoading, isError, error, data: dataList} =
+    const {isFetching, isLoading, isError, error, data: categoriesTwo} =
         useQuery({
-            queryKey: ["dataList", pageNo, perPage, searchKeyword],
-            queryFn: async () => ListRequest(pageNo, perPage, searchKeyword),
+            queryKey: ["categoriesTwo", pageNo, perPage, searchKeyword],
+            queryFn: async () => ListRequest(getCategory2,pageNo, perPage, searchKeyword),
             placeholderData: keepPreviousData,
             //staleTime: 2000,
         })
@@ -51,18 +52,15 @@ export default function CategoryTwoList(){
     }
 
     const {mutate} = UseMutation(
-        (id) => DeleteRequest(id),
+        (id) => DeleteRequest(removeCategory2,id),
         async () => {
-            return await queryClient.invalidateQueries({queryKey: ["dataList"]})
+            return await queryClient.invalidateQueries({queryKey: ["categoriesTwo"]})
         },
         (e) => ErrorToast(e.message)
     )
     const deleteItem = async (id) => {
-        console.log(id)
         let Result = await DeleteAlert();
-        if (Result.isConfirmed) {
-            mutate(id)
-        }
+        if (Result.isConfirmed) mutate(id)
     }
 
     if (isLoading) {
@@ -82,7 +80,7 @@ export default function CategoryTwoList(){
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-4">
-                                            <h5>Customer List - {dataList.total}</h5>
+                                            <h5>Category Two List - {categoriesTwo.total}</h5>
                                         </div>
 
                                         <div className="col-2">
@@ -130,7 +128,7 @@ export default function CategoryTwoList(){
                                                     </thead>
                                                     <tbody>
                                                     {
-                                                        dataList.rows?.map((item, i) => {
+                                                        categoriesTwo.rows?.map((item, i) => {
                                                             return (
                                                                 <tr key={i.toString()}>
                                                                     <td><p
@@ -176,7 +174,7 @@ export default function CategoryTwoList(){
                                                     last={true}
                                                     page={pageNo}
                                                     between={5}
-                                                    total={Math.ceil(dataList.total)}
+                                                    total={Math.ceil(categoriesTwo.total)}
                                                     limit={perPage}
                                                     changePage={(id) => handleMove(id)}
                                                     ellipsis={1}

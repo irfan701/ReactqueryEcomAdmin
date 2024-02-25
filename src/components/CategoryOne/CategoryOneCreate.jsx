@@ -1,17 +1,18 @@
 import {useState} from "react";
 import {ErrorToast} from "../../utility/FormHelper.js";
 import {UseMutation} from "../../utility/ReactQueryHook.js";
-import {CreateRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
+import {CreateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {useQueryClient} from "@tanstack/react-query";
+import {createCategory1} from "../../APIRequest/RouteName.js";
 const BrandCreateUpdate = () => {
     const [FormObj, setFormObj] = useState({cat1_name: '',cat1_image:''})
     const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
 
     const queryClient = useQueryClient()
     const {mutate} = UseMutation(
-        (formData) => CreateRequest(formData),
+        (formData) => CreateRequest(createCategory1,formData),
         async() => {
-            return await queryClient.invalidateQueries({queryKey:["dataList"]})
+            return await queryClient.invalidateQueries({queryKey:["categoriesOne"]})
         },
         (e) => ErrorToast(e.message)
     )
@@ -21,7 +22,6 @@ const BrandCreateUpdate = () => {
         //     ErrorToast("Category-1 Name Required !")
         // } else {
             await mutate(FormObj)
-
        // }
     }
     return (
@@ -33,7 +33,7 @@ const BrandCreateUpdate = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="row">
-                                        <h5>New Category Level -1</h5>
+                                        <h5>Add Category-1</h5>
                                         <hr className="bg-light"/>
 
                                         <div className="col-4 p-2">

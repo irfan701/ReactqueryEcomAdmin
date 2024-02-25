@@ -1,33 +1,27 @@
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {useEffect, useState} from "react";
-import {ErrorToast, isEmail, isEmpty} from "../../utility/FormHelper.js";
+import {ErrorToast, isEmpty} from "../../utility/FormHelper.js";
 import {UseMutation, UseQuery} from "../../utility/ReactQueryHook.js";
-import {FillFormRequest, UpdateRequest} from "../../APIRequest/BrandAPIRequest.js";
+import {FillFormRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {useNavigate} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
+import {readBrand, updateBrand} from "../../APIRequest/RouteName.js";
 
 export default function BrandUpdate() {
-    const [FormObj, setFormObj] = useState({name: '', email: '', phone: '', address: ''})
+    const [FormObj, setFormObj] = useState({name: '', image: ''})
     const navigate = useNavigate()
-    const InputOnChange = (key, value) => {
-        setFormObj(prevObj => ({
-            ...prevObj,
-            [key]: value
-        }))
-    }
-
+    const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
     let params = new URLSearchParams(window.location.search);
     let id = params.get('id');
 
-    const {isLoading, error, data} = UseQuery(['person', id], FillFormRequest(id))
+    const {isLoading, error, data} = UseQuery(['singleBrand', id], FillFormRequest(readBrand,id))
     useEffect(() => {
         if (data) {
             setFormObj(prevObj => ({
                 ...prevObj,
                 name: data.name,
-                email: data.email,
-                phone: data.phone,
-                address: data.address
+                image: data.image,
+
             }))
         }
     }, [data]);
@@ -35,26 +29,22 @@ export default function BrandUpdate() {
     const queryClient = useQueryClient()
 
     const {mutate} = UseMutation(
-        (formData) => UpdateRequest(formData, id),
+        (formData) => UpdateRequest(updateBrand,formData, id),
         async (data) =>
             (await Promise.all([
-                queryClient.setQueryData(['person', id], data),
-                queryClient.invalidateQueries({queryKey: ["dataList"]}),
-                queryClient.invalidateQueries({queryKey: ["person"]}),
+                queryClient.setQueryData(['singleBrand', id], data),
+                queryClient.invalidateQueries({queryKey: ["brands"]}),
+                queryClient.invalidateQueries({queryKey: ["singleBrand"]}),
             ])),
         (e) => ErrorToast(e.message)
     )
     const onSubmit = async (event) => {
         event.preventDefault()
         if (isEmpty(FormObj.name)) {
-            ErrorToast("Customer Name Required !")
-        } else if (isEmpty(FormObj.phone)) {
-            ErrorToast("Customer Phone  Number Required !")
-        } else if (isEmail(FormObj.email)) {
-            ErrorToast("Valid Email Address Required !")
-        } else {
+            ErrorToast("Brand Name Required !")
+        }  else {
           await mutate(FormObj)
-            navigate("/BrandListPage")
+            //navigate("/BrandListPage")
         }
     }
 
@@ -84,25 +74,12 @@ export default function BrandUpdate() {
                                             <div className="col-4 p-2">
                                                 <label className="form-label">Mobile No</label>
                                                 <input
-                                                    onChange={(e) => InputOnChange('phone', e.target.value)}
-                                                    defaultValue={data.phone}
+                                                    onChange={(e) => InputOnChange('image', e.target.value)}
+                                                    defaultValue={data.image}
                                                     className="form-control form-control-sm"
                                                     type="text"/>
                                             </div>
-                                            <div className="col-4 p-2">
-                                                <label className="form-label">Email </label>
-                                                <input
-                                                    onChange={(e) => InputOnChange('email', e.target.value)}
-                                                    defaultValue={data.email}
-                                                    className="form-control form-control-sm" type="text"/>
-                                            </div>
-                                            <div className="col-12 p-2">
-                                                <label className="form-label">Address</label>
-                                                <textarea
-                                                    onChange={(e) => InputOnChange('address', e.target.value)}
-                                                    defaultValue={data.address}
-                                                    className="form-control form-control-sm" rows={4}/>
-                                            </div>
+
                                         </div>
                                         <div className="row">
                                             <div className="col-4 p-2">

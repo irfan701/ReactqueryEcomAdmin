@@ -2,24 +2,20 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {useEffect, useState} from "react";
 import {ErrorToast, isEmpty} from "../../utility/FormHelper.js";
 import {UseMutation, UseQuery} from "../../utility/ReactQueryHook.js";
-import {FillFormRequest, UpdateRequest} from "../../APIRequest/CategoryOneAPIRequest.js";
+import {FillFormRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {useNavigate} from "react-router-dom";
 import {useQueryClient} from "@tanstack/react-query";
+import {readCategory1, updateCategory1} from "../../APIRequest/RouteName.js";
 
 export default function CategoryOneUpdate() {
     const [FormObj, setFormObj] = useState({cat1_name: ''})
     const navigate = useNavigate()
-    const InputOnChange = (key, value) => {
-        setFormObj(prevObj => ({
-            ...prevObj,
-            [key]: value
-        }))
-    }
-
+    const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
+    
     let params = new URLSearchParams(window.location.search);
     let id = params.get('id');
 
-    const {isLoading, error, data} = UseQuery(['person', id], FillFormRequest(id))
+    const {isLoading, error, data} = UseQuery(['singleData', id], FillFormRequest(readCategory1,id))
     useEffect(() => {
         if (data) {
             setFormObj(prevObj => ({
@@ -32,12 +28,12 @@ export default function CategoryOneUpdate() {
     const queryClient = useQueryClient()
 
     const {mutate} = UseMutation(
-        (formData) => UpdateRequest(formData, id),
+        (formData) => UpdateRequest(updateCategory1,formData, id),
         async (data) =>
             (await Promise.all([
-                queryClient.setQueryData(['person', id], data),
-                queryClient.invalidateQueries({queryKey: ["dataList"]}),
-                queryClient.invalidateQueries({queryKey: ["person"]}),
+                queryClient.setQueryData(['singleData', id], data),
+                queryClient.invalidateQueries({queryKey: ["categoriesOne"]}),
+                queryClient.invalidateQueries({queryKey: ["singleData"]}),
             ])),
         (e) => ErrorToast(e.message)
     )

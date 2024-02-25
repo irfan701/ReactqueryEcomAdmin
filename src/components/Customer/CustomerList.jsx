@@ -8,8 +8,6 @@ import {FaEdit} from "react-icons/fa";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
 
 
-
-
 const CustomerList = () => {
     let [searchKeyword, setSearchKeyword] = useState("0");
     let [perPage, setPerPage] = useState(10);

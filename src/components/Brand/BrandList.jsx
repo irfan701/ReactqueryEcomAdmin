@@ -3,12 +3,13 @@ import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {Link} from "react-router-dom";
 import {FaEdit} from "react-icons/fa";
-import {DeleteRequest, ListRequest} from "../../APIRequest/BrandAPIRequest.js";
+import {DeleteRequest, ListRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {DeleteAlert} from "../../utility/DeleteAlert.js";
 import {UseMutation} from "../../utility/ReactQueryHook.js";
 import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
+import {getBrand, removeBrand} from "../../APIRequest/RouteName.js";
 const BrandList = () => {
 
     const [pageNo,setPageNo]=useState(1); //skip
@@ -17,10 +18,10 @@ const BrandList = () => {
 
 
     const queryClient = useQueryClient()
-    const {isFetching,isLoading,isError, error, data: dataList} =
+    const {isFetching,isLoading,isError, error, data: brands} =
         useQuery({
-            queryKey: ["dataList",pageNo,perPage,searchKeyword],
-            queryFn: async ()=> ListRequest(pageNo,perPage,searchKeyword),
+            queryKey: ["brands",pageNo,perPage,searchKeyword],
+            queryFn: async ()=> ListRequest(getBrand,pageNo,perPage,searchKeyword),
             placeholderData: keepPreviousData,
             staleTime: 2000,
         })
@@ -50,17 +51,15 @@ const BrandList = () => {
     }
 
     const {mutate} = UseMutation(
-        (id) => DeleteRequest(id),
+        (id) => DeleteRequest(removeBrand,id),
         async () => {
-            return await queryClient.invalidateQueries({queryKey:["dataList"]})
+            return await queryClient.invalidateQueries({queryKey:["brands"]})
         },
         (e) => ErrorToast(e.message)
     )
     const deleteItem = async (id) => {
         let Result = await DeleteAlert();
-        if (Result.isConfirmed) {
-            mutate(id)
-        }
+        if (Result.isConfirmed) mutate(id)
     }
 
     if (isLoading) {
@@ -80,7 +79,7 @@ const BrandList = () => {
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-4">
-                                            <h5>Customer List - {dataList.total}</h5>
+                                            <h5>Brands List - {brands.total}</h5>
                                         </div>
 
                                         <div className="col-2">
@@ -105,10 +104,6 @@ const BrandList = () => {
                                                        placeholder="Search.."
                                                        aria-label="Recipient's username"
                                                        aria-describedby="button-addon2"/>
-                                                {/*<button onClick={searchData}*/}
-                                                {/*        className="btn  btn-success btn-sm mb-0"*/}
-                                                {/*        type="button">Search*/}
-                                                {/*</button>*/}
                                             </div>
                                         </div>
                                     </div>
@@ -120,35 +115,21 @@ const BrandList = () => {
                                                     <tr>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Phone</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Address</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Slug</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Photo</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
                                                     {
-                                                        dataList.rows.map((item, i) => {
+                                                        brands.rows.map((item, i) => {
                                                             return (
                                                                 <tr key={i.toString()}>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{i + 1}</p>
-                                                                    </td>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{item.name}</p>
-                                                                    </td>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{item.email}</p>
-                                                                    </td>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{item.phone}</p>
-                                                                    </td>
-                                                                    <td><p
-                                                                        className="text-xs text-start">{item.address}</p>
-                                                                    </td>
+                                                                    <td><p className="text-xs text-start">{i + 1}</p></td>
+                                                                    <td><p className="text-xs text-start">{item.name}</p></td>
+                                                                    <td><p className="text-xs text-start">{item.slug}</p></td>
                                                                     <td><p className="text-xs text-start">
-                                                                        <img src={item.photo} alt=""
+                                                                        <img src={item.image} alt=""
                                                                              className="w-50"/>
                                                                     </p></td>
 
@@ -182,7 +163,7 @@ const BrandList = () => {
                                                     last={true}
                                                     page={pageNo}
                                                     between={5}
-                                                    total={Math.ceil(dataList.total)}
+                                                    total={Math.ceil(brands.total)}
                                                     limit={perPage}
                                                     changePage={(id)=>handleMove(id)}
                                                     ellipsis={1}

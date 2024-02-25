@@ -2,8 +2,6 @@ import axios from "axios";
 import {AxiosHeaders, BaseURL} from "../utility/config.js";
 import {ErrorToast, getServerError, SuccessToast} from "../utility/FormHelper.js";
 
-
-
 export const ListRequest = async (RouteName, pageNo, perPage, searchKeyword) => {
     try {
         let URL = `${BaseURL}${RouteName}/${pageNo}/${perPage}/${searchKeyword}`;
@@ -27,7 +25,7 @@ export const CreateRequest = async (RouteName,PostBody) => {
         let URL = `${BaseURL}${RouteName}`
         let result = await axios.post(URL, PostBody, AxiosHeaders)
         if (result.status === 200 && result.data === 1) {
-            SuccessToast("Request Successful");
+            SuccessToast("Request Created Successful");
             return true;
         } else {
             ErrorToast("Request Fail ! Try Again")
@@ -38,9 +36,9 @@ export const CreateRequest = async (RouteName,PostBody) => {
     }
 
 }
-export const FillFormRequest = async (RouteName,id) => {
+export const FillFormRequest = async (RouteName,Id) => {
     try {
-        let URL = `${BaseURL}${RouteName}/${id}`
+        let URL = `${BaseURL}${RouteName}/${Id}`
         const result = await axios.get(URL, AxiosHeaders)
         if (result.status === 200) {
             return result.data
@@ -58,7 +56,7 @@ export const UpdateRequest = async (RouteName,PostBody, ObjectID) => {
         let URL = `${BaseURL}${RouteName}/${ObjectID}`
         let result = await axios.post(URL, PostBody, AxiosHeaders)
         if (result.status === 200 && result.data === 1) {
-            SuccessToast("Request Successful");
+            SuccessToast("Request Updated Successful");
             return true;
         } else {
             ErrorToast("Request Fail ! Try Again")
@@ -73,7 +71,7 @@ export const DeleteRequest = async (RouteName,ObjectID) => {
         let URL = `${BaseURL}${RouteName}/${ObjectID}`
         let result = await axios.get(URL, AxiosHeaders)
         if (result.status === 200 && result.data === 1) {
-            SuccessToast("Request Successful");
+            SuccessToast("Request Deleted Successful");
             return true
         } else {
             ErrorToast("Request Fail ! Try Again")
