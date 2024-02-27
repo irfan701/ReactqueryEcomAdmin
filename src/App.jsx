@@ -9,14 +9,21 @@ import BrandUpdatePage from "./pages/Brand/BrandUpdatePage.jsx";
 import ProfilePage from "./pages/Users/ProfilePage.jsx";
 import Page404 from "./pages/NotFound/Page404.jsx";
 import LoginPage from "./pages/Users/LoginPage.jsx";
-import CategoryCreateUpdatePage from "./pages/Category/CategoryCreateUpdatePage.jsx";
-import CategoryList from "./components/Category/CategoryList.jsx";
+
 import CategoryOneCreatePage from "./pages/CategoryOne/CategoryOneCreatePage.jsx";
 import CategoryOneListPage from "./pages/CategoryOne/CategoryOneListPage.jsx";
 import CategoryOneUpdatePage from "./pages/CategoryOne/CategoryOneUpdatePage.jsx";
 import CategoryTwoCreatePage from "./pages/CategoryTwo/CategoryTwoCreatePage.jsx";
 import CategoryTwoUpdatePage from "./pages/CategoryTwo/CategoryTwoUpdatePage.jsx";
 import CategoryTwoListPage from "./pages/CategoryTwo/CategoryTwoListPage.jsx";
+
+import ProductListPage from "./pages/Product/ProductListPage.jsx";
+import ProductCreateDescription from "./components/Product/ProductCreateDescription.jsx";
+import ProductCreateImages from "./components/Product/ProductCreateImages.jsx";
+import ProductCreateIdentity from "./components/Product/ProductCreateIdentity.jsx";
+import ProductCreateIdentityPage from "./pages/Product/ProductCreateIdentityPage.jsx";
+import ProductCreateDescriptionPage from "./pages/Product/ProductCreateDescriptionPage.jsx";
+import ProductCreateImagesPage from "./pages/Product/ProductCreateImagesPage.jsx";
 
 const App = () => {
     return (
@@ -35,15 +42,22 @@ const App = () => {
                     <Route exact path="/CategoryTwoUpdatePage" element={<CategoryTwoUpdatePage />}/>
                     <Route exact path="/CategoryTwoListPage" element={<CategoryTwoListPage />}/>
 
-                    <Route exact path="/CategoryThreeCreatePage" element={<CategoryOneCreatePage />}/>
-                    <Route exact path="/CategoryThreeUpdatePage" element={<CategoryOneUpdatePage />}/>
-                    <Route exact path="/CategoryThreeListPage" element={<CategoryOneListPage />}/>
+                    <Route exact path="/BrandCreatePage" element={<BrandCreatePage />}/>
+                    <Route exact path="/BrandUpdatePage" element={<BrandUpdatePage />}/>
+                    <Route exact path="/BrandListPage" element={<BrandListPage />}/>
 
                     <Route exact path="/BrandCreatePage" element={<BrandCreatePage />}/>
                     <Route exact path="/BrandUpdatePage" element={<BrandUpdatePage />}/>
                     <Route exact path="/BrandListPage" element={<BrandListPage />}/>
-                    <Route exact path="/login" element={<LoginPage />}/>
 
+
+                    <Route exact path="/ProductCreateIdentityPage" element={<ProductCreateIdentityPage />}/>
+                    <Route exact path="/ProductCreateDescriptionPage" element={<ProductCreateDescriptionPage />}/>
+                    <Route exact path="/ProductCreateImagesPage" element={<ProductCreateImagesPage />}/>
+                    <Route exact path="/ProductListPage" element={<ProductListPage />}/>
+
+
+                    <Route exact path="/login" element={<LoginPage />}/>
                     <Route exact path="/Profile" element={<ProfilePage/>}/>
                     <Route path="*" element={<Page404/>}/>
                 </Routes>

@@ -102,9 +102,19 @@ const MasterLayout = (props) => {
       subMenu: [
 
         {
-          title: 'New Product',
+          title: 'Add Product Identity',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/ProductCreateUpdatePage',
+          url: '/ProductCreateIdentityPage',
+        },
+        {
+          title: 'Add Product Description',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/ProductCreateDescriptionPage',
+        },
+        {
+          title: 'Add Product Images',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/ProductCreateImagesPage',
         },
         {
           title: 'Product List',

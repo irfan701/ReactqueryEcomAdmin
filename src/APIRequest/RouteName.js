@@ -19,3 +19,17 @@ export const createBrand = '/brand/create';
 export const readBrand = '/brand/read';
 export const updateBrand = '/brand/update';
 export const removeBrand = '/brand/delete';
+
+//DropDown Route
+
+export const getCategory1DD = '/cat1/get';
+export const getCategory2DD = '/cat2/get';
+export const getBrandDD = '/brand/get';
+export const getProductCode = '/product/get/pcode';
+
+//Products
+export const createProductIdentity = '/product/create/identity';
+export const createProductDetails = '/product/create/details';
+export const createProductImages = '/product/create/images';
+
+

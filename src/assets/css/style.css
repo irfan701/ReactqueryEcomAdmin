@@ -4,6 +4,7 @@
 @import 'progress.css';
 @import 'modal.css';
 @import 'dropdownmenu.css';
+@import "form.css";
 body {
   background: var(--bs-gray-100);
   font-size: 14px;

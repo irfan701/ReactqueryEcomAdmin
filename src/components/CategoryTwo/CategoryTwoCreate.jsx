@@ -5,7 +5,7 @@ import {CreateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {keepPreviousData, useQuery, useQueryClient} from "@tanstack/react-query";
 import {DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
-import {createCategory2} from "../../APIRequest/RouteName.js";
+import {createCategory2, getCategory1DD} from "../../APIRequest/RouteName.js";
 
 export default function CategoryTwoCreate() {
     const [FormObj, setFormObj] = useState({cat1_id:'',cat2_name: ''})
@@ -14,7 +14,7 @@ export default function CategoryTwoCreate() {
     const {isFetching, isLoading, isError, error, data: category_one} =
         useQuery({
             queryKey: ["category_one"],
-            queryFn: async () => DropDownListRequest(),
+            queryFn: async () => DropDownListRequest(getCategory1DD),
             placeholderData: keepPreviousData,
             //staleTime: 2000,
         })

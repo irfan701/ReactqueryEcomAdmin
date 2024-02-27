@@ -20,7 +20,7 @@ export const ListRequest = async (RouteName, pageNo, perPage, searchKeyword) => 
     }
 
 }
-export const CreateRequest = async (RouteName,PostBody) => {
+export const CreateRequest = async (RouteName, PostBody) => {
     try {
         let URL = `${BaseURL}${RouteName}`
         let result = await axios.post(URL, PostBody, AxiosHeaders)
@@ -36,7 +36,7 @@ export const CreateRequest = async (RouteName,PostBody) => {
     }
 
 }
-export const FillFormRequest = async (RouteName,Id) => {
+export const FillFormRequest = async (RouteName, Id) => {
     try {
         let URL = `${BaseURL}${RouteName}/${Id}`
         const result = await axios.get(URL, AxiosHeaders)
@@ -51,7 +51,7 @@ export const FillFormRequest = async (RouteName,Id) => {
         return false
     }
 }
-export const UpdateRequest = async (RouteName,PostBody, ObjectID) => {
+export const UpdateRequest = async (RouteName, PostBody, ObjectID) => {
     try {
         let URL = `${BaseURL}${RouteName}/${ObjectID}`
         let result = await axios.post(URL, PostBody, AxiosHeaders)
@@ -66,7 +66,7 @@ export const UpdateRequest = async (RouteName,PostBody, ObjectID) => {
         getServerError(e)
     }
 }
-export const DeleteRequest = async (RouteName,ObjectID) => {
+export const DeleteRequest = async (RouteName, ObjectID) => {
     try {
         let URL = `${BaseURL}${RouteName}/${ObjectID}`
         let result = await axios.get(URL, AxiosHeaders)

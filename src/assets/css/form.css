@@ -1,0 +1,11 @@
+.invalid-error{
+    text-align: start;
+    font-size:13px;
+    margin-top:5px;
+    margin-left:10px;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    color:#e03d00;
+    font-weight:bold;
+    font-family: 'ui-monospace', sans-serif !important;
+}
