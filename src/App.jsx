@@ -24,6 +24,9 @@ import ProductCreateIdentity from "./components/Product/ProductCreateIdentity.js
 import ProductCreateIdentityPage from "./pages/Product/ProductCreateIdentityPage.jsx";
 import ProductCreateDescriptionPage from "./pages/Product/ProductCreateDescriptionPage.jsx";
 import ProductCreateImagesPage from "./pages/Product/ProductCreateImagesPage.jsx";
+import VisitorListPage from "./pages/Visitor/VisitorListPage.jsx";
+import NotificationListPage from "./pages/Notification/NotificationListPage.jsx";
+import ContactListPage from "./pages/Contact/ContactListPage.jsx";
 
 const App = () => {
     return (
@@ -46,10 +49,10 @@ const App = () => {
                     <Route exact path="/BrandUpdatePage" element={<BrandUpdatePage />}/>
                     <Route exact path="/BrandListPage" element={<BrandListPage />}/>
 
-                    <Route exact path="/BrandCreatePage" element={<BrandCreatePage />}/>
-                    <Route exact path="/BrandUpdatePage" element={<BrandUpdatePage />}/>
-                    <Route exact path="/BrandListPage" element={<BrandListPage />}/>
-
+                    <Route exact path="/visitor" element={<VisitorListPage />}/>
+                    <Route exact path="/notification" element={<NotificationListPage />}/>
+                    {/*<Route exact path="/otp" element={< />}/>*/}
+                    <Route exact path="/contact" element={<ContactListPage />}/>
 
                     <Route exact path="/ProductCreateIdentityPage" element={<ProductCreateIdentityPage />}/>
                     <Route exact path="/ProductCreateDescriptionPage" element={<ProductCreateDescriptionPage />}/>

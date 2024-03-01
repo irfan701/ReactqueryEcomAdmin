@@ -115,14 +115,9 @@ export default function CategoryTwoList(){
                                                     <thead className="sticky-top bg-white">
                                                     <tr>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-1
-                                                            Name
-                                                        </td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2
-                                                            Name
-                                                        </td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2
-                                                            Slug</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-1 Name</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2 Name</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category-2 Slug</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</td>
                                                     </tr>
                                                     </thead>

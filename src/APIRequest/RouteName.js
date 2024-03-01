@@ -25,11 +25,14 @@ export const removeBrand = '/brand/delete';
 export const getCategory1DD = '/cat1/get';
 export const getCategory2DD = '/cat2/get';
 export const getBrandDD = '/brand/get';
-export const getProductCode = '/product/get/pcode';
+export const getProductCodeDD = '/product/get/pcode';
 
 //Products
 export const createProductIdentity = '/product/create/identity';
 export const createProductDetails = '/product/create/details';
 export const createProductImages = '/product/create/images';
+
+export const getProducts = '/product/get';
+export const removeProducts = '/product/delete';
 
 

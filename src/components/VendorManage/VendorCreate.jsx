@@ -7,7 +7,7 @@ import {DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
 import ScreenLoader from "../Loading/ScreenLoader.jsx";
 import {createCategory2, getCategory1DD} from "../../APIRequest/RouteName.js";
 
-export default function CategoryTwoCreate() {
+export default function VendorCreate() {
     const [FormObj, setFormObj] = useState({cat1_id:'',cat2_name: ''})
     const InputOnChange = (key, value) => setFormObj(prevObj => ({...prevObj, [key]: value}))
 

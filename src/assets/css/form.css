@@ -9,3 +9,11 @@
     font-weight:bold;
     font-family: 'ui-monospace', sans-serif !important;
 }
+
+.rti--container{
+    border-radius: 0.5rem!important;
+
+}
+.rti--container:focus{
+    border-color: #00A884!important;
+}

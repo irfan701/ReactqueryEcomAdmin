@@ -90,13 +90,11 @@ const ProductCreateIdentity = () => {
                                             <option value="">Select Type</option>
                                             {
                                                 categoryTwoDD?.map((item, i) => {
-                                                    return (<option key={i.toLocaleString()}
-                                                                    value={item.id}>{item.cat2_name}</option>)
+                                                    return (<option key={i.toLocaleString()} value={item.id}>{item.cat2_name}</option>)
                                                 })
                                             }
                                         </select>
-                                        {errors.cat2_id?.message && (
-                                            <p className="invalid-error">{errors.cat2_id?.message}</p>)}
+                                        {errors.cat2_id?.message && (<p className="invalid-error">{errors.cat2_id?.message}</p>)}
                                     </div>
 
                                     <div className="col-4 p-2">
@@ -128,15 +126,9 @@ const ProductCreateIdentity = () => {
 
                                     <div className="col-4 p-2">
                                         <label className="form-label">Item Name</label>
-                                        <input {...register("title", {
-                                            required: {
-                                                value: true,
-                                                message: 'Item name is required'
-                                            }
-                                        })}
+                                        <input {...register("title", {required: {value: true, message: 'Item name is required'}})}
                                                className="form-control form-control-sm" type="text"/>
-                                        {errors.title?.message && (
-                                            <p className="invalid-error">{errors.title?.message}</p>)}
+                                        {errors.title?.message && (<p className="invalid-error">{errors.title?.message}</p>)}
                                     </div>
                                     <div className="col-4 p-2">
                                         <label className="form-label">Quantity</label>

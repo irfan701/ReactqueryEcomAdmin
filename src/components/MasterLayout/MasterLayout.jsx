@@ -53,6 +53,34 @@ const MasterLayout = (props) => {
       url: '/',
       subMenu: [],
     },
+    {
+      title: 'Customer History',
+      icon: <BsBox className="side-bar-item-icon" />,
+      url: '',
+      subMenu: [
+        {
+          title: 'Visitor',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/visitor',
+        },
+        {
+          title: 'Notification',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/notification',
+        },
+        {
+          title: 'OTP History',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/otp',
+        },
+        {
+          title: 'Contact',
+          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+          url: '/contact',
+        },
+      ],
+    },
+
 
     {
       title: 'Category Level',

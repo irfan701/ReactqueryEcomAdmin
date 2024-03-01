@@ -9,9 +9,9 @@ import {UseMutation} from "../../utility/ReactQueryHook.js";
 import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
-import {getProducts, removeProducts} from "../../APIRequest/RouteName.js";
+import {getCategory2, removeCategory2} from "../../APIRequest/RouteName.js";
 
-export default function ProductList(){
+export default function VendorList(){
 
     const [pageNo, setPageNo] = useState(1); //skip
     const [perPage, setPerPage] = useState(10); //limit
@@ -19,10 +19,10 @@ export default function ProductList(){
 
 
     const queryClient = useQueryClient()
-    const {isFetching, isLoading, isError, error, data: products} =
+    const {isFetching, isLoading, isError, error, data: vendors} =
         useQuery({
-            queryKey: ["products", pageNo, perPage, searchKeyword],
-            queryFn: async () => ListRequest(getProducts,pageNo, perPage, searchKeyword),
+            queryKey: ["vendors", pageNo, perPage, searchKeyword],
+            queryFn: async () => ListRequest(getCategory2,pageNo, perPage, searchKeyword),
             placeholderData: keepPreviousData,
             //staleTime: 2000,
         })
@@ -52,9 +52,9 @@ export default function ProductList(){
     }
 
     const {mutate} = UseMutation(
-        (id) => DeleteRequest(removeProducts,id),
+        (id) => DeleteRequest(removeCategory2,id),
         async () => {
-            return await queryClient.invalidateQueries({queryKey: ["products"]})
+            return await queryClient.invalidateQueries({queryKey: ["vendors"]})
         },
         (e) => ErrorToast(e.message)
     )
@@ -80,7 +80,7 @@ export default function ProductList(){
                                 <div className="container-fluid">
                                     <div className="row">
                                         <div className="col-4">
-                                            <h6>Product  List - {products.total}</h6>
+                                            <h5>Category Two List - {vendors.total}</h5>
                                         </div>
 
                                         <div className="col-2">
@@ -115,51 +115,55 @@ export default function ProductList(){
                                                     <thead className="sticky-top bg-white">
                                                     <tr>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Item Name</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Quantity</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Price</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Brand</td>
-                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cat 1</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Code</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Logo</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Name</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Owner</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Address</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Category</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Username</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Mobile</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Email</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Password</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Shop Status</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
-                                                    {
-                                                        products.rows?.map((item, i) => {
-                                                            return (
-                                                                <tr key={i.toString()}>
+                                                    {/*{*/}
+                                                    {/*    vendors.rows?.map((item, i) => {*/}
+                                                    {/*        return (*/}
+                                                    {/*            <tr key={i.toString()}>*/}
+                                                    {/*                <td><p className="text-xs text-start"> {item.id}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_code}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_logo}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_name}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_owner}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_address}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_category}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_username}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_mobile}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_email}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_password}</p></td>*/}
+                                                    {/*                <td><p className="text-xs text-start">{item.shop_status}</p></td>*/}
 
-                                                                    <td><p className="text-xs text-start">{i+1}</p></td>
-                                                                    <td><p className="text-xs text-start">{item.title}</p></td>
-                                                                    <td><p className="text-xs text-start">{item.qty}</p></td>
-                                                                    <td><p className="text-xs text-start">{item.price}</p></td>
-                                                                    <td><p className="text-xs text-start">{item.brands?item.brands.name:""}</p></td>
-                                                                    <td><p className="text-xs text-start">{item.category1?item.category1.cat1_name:""}</p></td>
-                                                                    {/*<td><p className="text-xs text-start">{item.Details}</p></td>*/}
+                                                    {/*                <td>*/}
+                                                    {/*                    <Link*/}
+                                                    {/*                        to={`/CategoryTwoUpdatePage?id=${item.id}`}*/}
+                                                    {/*                        className="btn text-info btn-outline-light p-2 mb-0 btn-sm">*/}
+                                                    {/*                        <FaEdit size={15}/>*/}
+                                                    {/*                    </Link>*/}
 
-                                                                    <td>
-                                                                        <Link
-                                                                            to={`/ProductCreateDescriptionPage?id=${item.id}`}
-                                                                            className="btn text-warning btn-outline-light p-2 mb-0 btn-sm">
-                                                                            <FaEdit size={15}/>
-                                                                        </Link>
+                                                    {/*                    <button onClick={() => deleteItem(item.id)}*/}
+                                                    {/*                            className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">*/}
+                                                    {/*                        <AiOutlineDelete size={15}/>*/}
+                                                    {/*                    </button>*/}
+                                                    {/*                </td>*/}
+                                                    {/*            </tr>*/}
+                                                    {/*        )*/}
+                                                    {/*    })*/}
 
-                                                                        <Link
-                                                                            to={`/CategoryTwoUpdatePage?id=${item.id}`}
-                                                                            className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
-                                                                            <FaEdit size={15}/>
-                                                                        </Link>
-
-                                                                        <button onClick={() => deleteItem(item.id)}
-                                                                                className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
-                                                                            <AiOutlineDelete size={15}/>
-                                                                        </button>
-                                                                    </td>
-                                                                </tr>
-                                                            )
-                                                        })
-
-                                                    }
+                                                    {/*}*/}
 
                                                     </tbody>
                                                 </table>
@@ -173,7 +177,7 @@ export default function ProductList(){
                                                     last={true}
                                                     page={pageNo}
                                                     between={5}
-                                                    total={Math.ceil(products.total)}
+                                                    total={Math.ceil(vendors.total)}
                                                     limit={perPage}
                                                     changePage={(id) => handleMove(id)}
                                                     ellipsis={1}
