@@ -1,38 +1,57 @@
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {createProductDetails} from "../../APIRequest/RouteName.js";
+import {useQueryClient} from "@tanstack/react-query";
+import {createProductDetails, readProductDetails} from "../../APIRequest/RouteName.js";
 import {Controller, useForm} from "react-hook-form";
 import {UseMutation} from "../../utility/ReactQueryHook.js";
-import {CreateRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
+import {FillFormRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {ErrorToast} from "../../utility/FormHelper.js";
 import {TagsInput} from "react-tag-input-component";
 
+
 const ProductCreateDescription = () => {
+
+
+    let params = new URLSearchParams(window.location.search);
+    let id = params.get('id');
+
 
     const {
         register,
         handleSubmit,
         formState: {errors},
         control
-    } = useForm()
+    } = useForm({
+        defaultValues:async ()=>{
+            const readProducts=await FillFormRequest(readProductDetails,id)
+            console.log(readProducts)
+            let color = readProducts.color.split(",");
+            let size = readProducts.size.split(",");
+            return{
+                'color':color,
+                'size':size,
+                'bullet_point':readProducts.bullet_point,
+                'short_des':readProducts.short_des,
+                'long_des':readProducts.long_des,
+            }
+        }
+    })
 
 
     // const {isLoading, data: product_code} = useQuery({queryKey: ["categoryOneDD"],
     //         queryFn: async () => DropDownListRequest(getProductCodeDD),
     //     })
-    let params = new URLSearchParams(window.location.search);
-    let id = params.get('id');
+
+
+
 
     const queryClient = useQueryClient()
     const {mutate} = UseMutation(
-        (formData) => CreateRequest(createProductDetails, formData),
+        (formData) => UpdateRequest(createProductDetails, formData,id),
         async () => {
             return await queryClient.invalidateQueries({queryKey: ["products", id]})
         },
         (e) => ErrorToast(e.message)
     )
-   // const onSubmit = async (data) => await mutate(data)
-    const onSubmit = async (data) => console.log(data)
-
+  const onSubmit = async (data) => await mutate(data)
 
     return (
         <div className="container-fluid">
@@ -45,7 +64,7 @@ const ProductCreateDescription = () => {
                                     <h5>Save Product Type</h5>
                                     <hr className="bg-light"/>
 
-
+                                    {/*<input type="hidden"  {...register("product_id")}/>*/}
                                     {/*<div className="col-4 p-2">*/}
                                     {/*    <label className="form-label">Product Code</label>*/}
                                     {/*    <select*/}
@@ -72,7 +91,7 @@ const ProductCreateDescription = () => {
                                             control={control}
                                             render={({field}) => (
                                                 <TagsInput
-                                                    //value={field.value}
+                                                    value={field.value}
                                                     //id={field.name}
                                                     onChange={value => field.onChange(value)}
                                                     placeHolder="Enter Size Tag"
@@ -88,7 +107,7 @@ const ProductCreateDescription = () => {
                                             control={control}
                                             render={({field}) => (
                                                 <TagsInput
-                                                    //value={field.value}
+                                                    value={field.value}
                                                     //id={field.name}
                                                     onChange={value => field.onChange(value)}
                                                     placeHolder="Enter Color Tags"

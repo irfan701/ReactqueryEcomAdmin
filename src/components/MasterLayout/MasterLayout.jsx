@@ -134,15 +134,22 @@ const MasterLayout = (props) => {
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/ProductCreateIdentityPage',
         },
-        {
-          title: 'Add Product Description',
-          icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
-          url: '/ProductCreateDescriptionPage',
-        },
+        // {
+        //   title: 'Add Product Description',
+        //   icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
+        //   url: '/ProductCreateDescriptionPage',
+        // },
         {
           title: 'Add Product Images',
           icon: <BsCircle size={16} className="side-bar-subitem-icon" />,
           url: '/ProductCreateImagesPage',
+        },
+        {
+          title: 'Incomplete Product',
+          icon: (
+              <BsCircle  size={16} className="side-bar-subitem-icon" />
+          ),
+          url: '/InProductListPage',
         },
         {
           title: 'Product List',

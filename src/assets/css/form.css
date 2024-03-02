@@ -17,3 +17,11 @@
 .rti--container:focus{
     border-color: #00A884!important;
 }
+
+.progress-bar {
+    height: 19px!important;
+    border-radius: 0.25rem;
+    margin-top: -0.095rem;
+    margin-left: -1px;
+    background-color: #0b5d6f;
+}

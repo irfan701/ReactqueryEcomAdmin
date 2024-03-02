@@ -12,7 +12,7 @@ import {PaginationControl} from "react-bootstrap-pagination-control";
 import {getProducts, removeProducts} from "../../APIRequest/RouteName.js";
 import {Badge, ProgressBar} from "react-bootstrap";
 
-export default function ProductList(){
+export default function IncompleteProductList(){
 
     const [pageNo, setPageNo] = useState(1); //skip
     const [perPage, setPerPage] = useState(10); //limit
@@ -125,7 +125,8 @@ export default function ProductList(){
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Cat 1</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</td>
                                                         <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Details</td>
-
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Multi Image</td>
+                                                        <td className="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</td>
                                                     </tr>
                                                     </thead>
                                                     <tbody>
@@ -145,25 +146,25 @@ export default function ProductList(){
                                                                     <td><p className="text-xs text-start">{item.price}</p></td>
                                                                     <td><p className="text-xs text-start">{item.brands?item.brands.name:""}</p></td>
                                                                     <td><p className="text-xs text-start">{item.category1?item.category1.cat1_name:""}</p></td>
-                                                                    <td><p className="text-xs text-start">
-                                                                        <Badge bg="secondary">Active</Badge>
-
-                                                                    </p></td>
-
+                                                                    <td><p className="text-xs text-start"><Badge bg="secondary">Active</Badge></p></td>
+                                                                    <td><p className="text-xs text-start"><Badge bg="warning">{item.details_status==0?'Incompleted':'completed'}</Badge></p></td>
+                                                                    <td><p className="text-xs text-start"><Badge bg="secondary">{item.image_status==0?'Incompleted':'completed'}</Badge></p></td>
 
                                                                     <td>
+                                                                        {item.details_status==0?
                                                                         <Link
                                                                             to={`/ProductCreateDescriptionPage?id=${item.id}`}
                                                                             className="btn text-warning btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>
-
+                                                                            :''}
+                                                                        {item.image_status==0?
                                                                         <Link
-                                                                            to={`/CategoryTwoUpdatePage?id=${item.id}`}
+                                                                            to={`/ProductCreateImagesPage?id=${item.id}`}
                                                                             className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>
-
+                                                                            :''}
                                                                         <button onClick={() => deleteItem(item.id)}
                                                                                 className="btn btn-outline-light text-danger p-2 mb-0 btn-sm ms-2">
                                                                             <AiOutlineDelete size={15}/>

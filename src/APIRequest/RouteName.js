@@ -30,7 +30,10 @@ export const getProductCodeDD = '/product/get/pcode';
 //Products
 export const createProductIdentity = '/product/create/identity';
 export const createProductDetails = '/product/create/details';
+
 export const createProductImages = '/product/create/images';
+
+export const readProductDetails = '/product/read/details';
 
 export const getProducts = '/product/get';
 export const removeProducts = '/product/delete';

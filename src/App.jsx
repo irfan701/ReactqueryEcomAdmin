@@ -27,6 +27,8 @@ import ProductCreateImagesPage from "./pages/Product/ProductCreateImagesPage.jsx
 import VisitorListPage from "./pages/Visitor/VisitorListPage.jsx";
 import NotificationListPage from "./pages/Notification/NotificationListPage.jsx";
 import ContactListPage from "./pages/Contact/ContactListPage.jsx";
+import IncompleteProductList from "./components/Product/IncompleteProductList.jsx";
+import IncompleteProductListPage from "./pages/Product/IncompleteProductListPage.jsx";
 
 const App = () => {
     return (
@@ -57,6 +59,7 @@ const App = () => {
                     <Route exact path="/ProductCreateIdentityPage" element={<ProductCreateIdentityPage />}/>
                     <Route exact path="/ProductCreateDescriptionPage" element={<ProductCreateDescriptionPage />}/>
                     <Route exact path="/ProductCreateImagesPage" element={<ProductCreateImagesPage />}/>
+                    <Route exact path="/InProductListPage" element={<IncompleteProductListPage />}/>
                     <Route exact path="/ProductListPage" element={<ProductListPage />}/>
 
 
