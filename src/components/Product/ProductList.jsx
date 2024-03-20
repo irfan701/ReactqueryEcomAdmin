@@ -159,7 +159,7 @@ export default function ProductList(){
                                                                         </Link>
 
                                                                         <Link
-                                                                            to={`/CategoryTwoUpdatePage?id=${item.id}`}
+                                                                            to={`/ProductCreateIdentityPage?id=${item.id}`}
                                                                             className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>

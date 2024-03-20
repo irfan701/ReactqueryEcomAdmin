@@ -31,9 +31,13 @@ export const getProductCodeDD = '/product/get/pcode';
 export const createProductIdentity = '/product/create/identity';
 export const createProductDetails = '/product/create/details';
 
-export const createProductImages = '/product/create/images';
+export const createProductMainImage = '/product/create/main/image';
+export const createProductMultiImage = '/product/create/multi/image';
 
 export const readProductDetails = '/product/read/details';
+export const readProductIdentity = '/product/read/identity';
+
+export const updateProductIdentity = '/product/update/identity';
 
 export const getProducts = '/product/get';
 export const removeProducts = '/product/delete';

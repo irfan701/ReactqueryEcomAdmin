@@ -10,7 +10,8 @@ import {ErrorToast} from "../../utility/FormHelper.js";
 import {AiOutlineDelete} from "react-icons/ai";
 import {PaginationControl} from "react-bootstrap-pagination-control";
 import {getProducts, removeProducts} from "../../APIRequest/RouteName.js";
-import {Badge, ProgressBar} from "react-bootstrap";
+import {Badge} from "react-bootstrap";
+import uploadImg from './../../assets/3204121.jpg'
 
 export default function IncompleteProductList(){
 
@@ -136,10 +137,25 @@ export default function IncompleteProductList(){
                                                                 <tr key={i.toString()}>
 
                                                                     <td><p className="text-xs text-start">{i+1}</p></td>
-                                                                    <td><p className="text-xs text-start">
-                                                                        <img width={100} src="https://help.rangeme.com/hc/article_attachments/360006928633/what_makes_a_good_product_image.jpg" alt=""/>
-                                                                    
-                                                                    </p></td>
+                                                                    <td>
+                                                                        <p className="text-xs text-start">
+                                                                        {item.product_details.main_image &&
+                                                                            <Link
+                                                                                to={`/ProductCreateImagesPage?id=${item.id}`}
+                                                                                className="btn text-info btn-outline-light p-1 mb-0 btn-sm">
+                                                                                <img width={60} src={item.product_details.main_image} alt=""/>
+                                                                            </Link>
+                                                                       ||
+
+                                                                        <Link
+                                                                            to={`/ProductCreateImagesPage?id=${item.id}`}
+                                                                            className="btn text-info btn-outline-light p-1 mb-0 btn-sm">
+                                                                            <img width={60} src={uploadImg} alt=""/>
+                                                                        </Link>
+                                                                            }
+                                                                    </p>
+
+                                                                    </td>
                                                                     <td><p className="text-xs text-start">{item.pcode}</p></td>
                                                                     <td><p className="text-xs text-start">{item.title}</p></td>
                                                                     <td><p className="text-xs text-start">{item.qty}</p></td>
@@ -155,13 +171,6 @@ export default function IncompleteProductList(){
                                                                         <Link
                                                                             to={`/ProductCreateDescriptionPage?id=${item.id}`}
                                                                             className="btn text-warning btn-outline-light p-2 mb-0 btn-sm">
-                                                                            <FaEdit size={15}/>
-                                                                        </Link>
-                                                                            :''}
-                                                                        {item.image_status==0?
-                                                                        <Link
-                                                                            to={`/ProductCreateImagesPage?id=${item.id}`}
-                                                                            className="btn text-info btn-outline-light p-2 mb-0 btn-sm">
                                                                             <FaEdit size={15}/>
                                                                         </Link>
                                                                             :''}

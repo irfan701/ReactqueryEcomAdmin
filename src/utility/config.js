@@ -6,7 +6,8 @@ export const AxiosHeaders = {
     headers: {
         Accept:'application/json',
         Authorization:getToken(),
-    }
+        "content-type": "multipart/form-data"
+    },
 }
 
 export const RCS= "Request Created Successful"

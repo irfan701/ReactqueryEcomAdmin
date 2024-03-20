@@ -1,18 +1,43 @@
 import {useForm} from "react-hook-form";
-import {useQuery, useQueryClient} from "@tanstack/react-query";
-import {createProductIdentity, getBrandDD, getCategory1DD, getCategory2DD} from "../../APIRequest/RouteName.js";
+import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
+import {
+    createProductIdentity,
+    getBrandDD,
+    getCategory1DD,
+    getCategory2DD,
+    readProductIdentity, updateProductIdentity
+} from "../../APIRequest/RouteName.js";
 import {DependentDropDownListRequestById, DropDownListRequest} from "../../APIRequest/DropdownListAPIRequest.js";
 import {useState} from "react";
-import {UseMutation} from "../../utility/ReactQueryHook.js";
-import {CreateRequest} from "../../APIRequest/CrudAPIRequest.js";
+import {CreateRequest, FillFormRequest, UpdateRequest} from "../../APIRequest/CrudAPIRequest.js";
 import {ErrorToast} from "../../utility/FormHelper.js";
+import {useNavigate} from "react-router-dom";
 
 const ProductCreateIdentity = () => {
 
     const [CatOneId, setCatOneId] = useState()
     const CatOneIdHandle = (id) => setCatOneId(id)
+    const navigate = useNavigate();
 
-    const {register, formState: {errors}, handleSubmit} = useForm()
+    let params = new URLSearchParams(window.location.search);
+    let id = params.get('id');
+
+    const {register, formState: {errors}, handleSubmit} =
+        useForm({
+            defaultValues: async () => {
+                const readProducts = await FillFormRequest(readProductIdentity, id)
+                console.log(readProducts)
+                return {
+                    'cat1_id': readProducts.cat1_id,
+                    'cat2_id': readProducts.cat2_id,
+                    'brand_id': readProducts.brand_id,
+                    'title': readProducts.title,
+                    'qty': readProducts.qty,
+                    'price': readProducts.price,
+                    'discount': readProducts.special_price,
+                }
+            }
+        })
 
     const {isLoading, data: categoryOneDD} =
         useQuery({
@@ -34,13 +59,23 @@ const ProductCreateIdentity = () => {
         })
 
     const queryClient = useQueryClient()
-    const {mutate} = UseMutation(
-        (formData) => CreateRequest(createProductIdentity,formData),
-        async() => {
-            return await queryClient.invalidateQueries({queryKey:[""]})
+
+    const {mutate} = useMutation({
+        mutationFn: async (formData) => {
+            if (id != null) {
+                await UpdateRequest(updateProductIdentity, formData, id)
+                navigate('/ProductListPage')
+            } else {
+                await CreateRequest(createProductIdentity, formData)
+            }
         },
-        (e) => ErrorToast(e.message)
-    )
+        onSuccess: async () => {
+            return await queryClient.invalidateQueries({queryKey: [""]})
+        },
+        onError: (e) => ErrorToast(e.message)
+    })
+
+
     const onSubmit = async (data) => await mutate(data)
 
     return (
@@ -90,11 +125,13 @@ const ProductCreateIdentity = () => {
                                             <option value="">Select Type</option>
                                             {
                                                 categoryTwoDD?.map((item, i) => {
-                                                    return (<option key={i.toLocaleString()} value={item.id}>{item.cat2_name}</option>)
+                                                    return (<option key={i.toLocaleString()}
+                                                                    value={item.id}>{item.cat2_name}</option>)
                                                 })
                                             }
                                         </select>
-                                        {errors.cat2_id?.message && (<p className="invalid-error">{errors.cat2_id?.message}</p>)}
+                                        {errors.cat2_id?.message && (
+                                            <p className="invalid-error">{errors.cat2_id?.message}</p>)}
                                     </div>
 
                                     <div className="col-4 p-2">
@@ -126,9 +163,15 @@ const ProductCreateIdentity = () => {
 
                                     <div className="col-4 p-2">
                                         <label className="form-label">Item Name</label>
-                                        <input {...register("title", {required: {value: true, message: 'Item name is required'}})}
+                                        <input {...register("title", {
+                                            required: {
+                                                value: true,
+                                                message: 'Item name is required'
+                                            }
+                                        })}
                                                className="form-control form-control-sm" type="text"/>
-                                        {errors.title?.message && (<p className="invalid-error">{errors.title?.message}</p>)}
+                                        {errors.title?.message && (
+                                            <p className="invalid-error">{errors.title?.message}</p>)}
                                     </div>
                                     <div className="col-4 p-2">
                                         <label className="form-label">Quantity</label>
